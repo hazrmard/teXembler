@@ -1,0 +1,15 @@
+files = ["files/f1.md", "files/f2.md"]
+cmd = [["python", "--version"], ["echo", "{{.name}}"]]
+
+[[version]]
+    name = "Even"
+    [version.tags]
+        even = true
+        odd = false
+
+
+[[version]]
+    name = "Odd"
+    [version.tags]
+        even = false
+        odd = true
