@@ -1,15 +1,28 @@
-files = ["files/f1.md", "files/f2.md"]
-cmd = [["python", "--version"], ["echo", "{{.name}}"]]
+files = ["files/latex.tex"]
+cmd = [
+    ["pdflatex.exe",
+        "-synctex=0",
+        "-quiet",
+        "-interaction=nonstopmode",
+        "-job-name={{.name}}",
+    "{{index .files 0}}"],
+    ["powershell.exe",
+    "-noprofile",
+    "-command",
+        '"remove-item .\\* -include *.aux, *.log, *.gz"']
+    ]
+
 
 [[version]]
-    name = "Even"
+    name = "FunnySadDraft"
     [version.tags]
-        even = true
-        odd = false
+        funny = true
+        sad = true
+        draft = true
 
 
 [[version]]
-    name = "Odd"
+    name = "SadFinal"
     [version.tags]
-        even = false
-        odd = true
+        sad = true
+        final = true

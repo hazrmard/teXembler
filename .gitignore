@@ -1,2 +1,6 @@
 *.ini
 *.exe
+*.pdf
+*.aux
+*.gz
+*.log

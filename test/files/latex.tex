@@ -1,0 +1,27 @@
+\documentclass[]{article}
+
+% {{if .tags.draft}}
+    \title{Draft}
+% {{else if .tags.final}}
+    \title{Final}
+% {{end}}
+\author{JK Rowling}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+% {{if .tags.funny}}
+    Haha that was hilarious.
+% {{end}}
+% {{if .tags.sad}}
+    Waa! I'm sad.
+% {{end}}
+\end{abstract}
+
+\section{Body}
+
+This is the body. Shows in all cases.
+
+\end{document}
