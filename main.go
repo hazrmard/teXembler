@@ -23,47 +23,38 @@ func main() {
 
 	viper.SetConfigName(configFile)
 	viper.AddConfigPath(configDir)
-
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	if err := viper.ReadInConfig(); err != nil {
+		panic(fmt.Errorf("Fatal error config file: %s", err))
 	}
 
 	settings := viper.AllSettings()
-	files := viper.GetStringSlice("files")
-	versions := settings["version"].([]interface{})
-	cmds := viper.Get("cmd").([]interface{})
 
-	for _, v := range versions {
+	SiftSettings(settings, "version")
+
+	for _, v := range settings["version"].([]interface{}) {
 		version := v.(map[string]interface{})
 
-		if version["files"] == nil {
-			version["origFiles"] = files
-		} else {
-			version["origFiles"] = version["files"]
-		}
-		if version["cmd"] == nil {
-			version["cmd"] = cmds
-		}
+		tempFiles := make([]string, len(version["files"].([]interface{})))
 
-		tempFiles := make([]string, len(version["origFiles"].([]string)))
-
-		for i, f := range version["origFiles"].([]string) {
+		for i, f := range version["files"].([]interface{}) {
+			f := f.(string)
 			fpath := path.Join(configDir, f)
 			tempFile, err := ioutil.TempFile(path.Dir(fpath), path.Base(fpath))
+			if err != nil {
+				panic(err)
+			}
 			defer os.Remove(tempFile.Name())
 			tempFiles[i] = tempFile.Name()
 
 			tmplVer := template.Must(template.New(path.Base(fpath)).ParseFiles(fpath))
-			err = tmplVer.Execute(tempFile, version)
-			tempFile.Close()
-			if err != nil {
+			if err := tmplVer.Execute(tempFile, version); err != nil {
 				panic(err)
 			}
+			tempFile.Close()
 		}
 		version["files"] = tempFiles
 
-		for _, c := range cmds {
+		for _, c := range version["cmd"].([]interface{}) {
 			cmd := c.([]interface{})
 			parsedCmd := make([]string, len(cmd))
 
