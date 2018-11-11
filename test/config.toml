@@ -1,15 +1,17 @@
-files = ["files/latex.tex"]
+files = ["files/latex.tex", "files/include.tex"]
 cmd = [
     ["pdflatex.exe",
         "-synctex=0",
         "-quiet",
         "-interaction=nonstopmode",
+        "-output-directory={{.root}}",
+        "-include-directory={{.root}}",
         "-job-name={{.name}}",
     "{{index .files 0}}"],
     ["powershell.exe",
-    "-noprofile",
-    "-command",
-        '"remove-item .\\* -include *.aux, *.log, *.gz"']
+        "-noprofile",
+        "-command",
+        '& {remove-item {{.root}}\* -include *.aux, *.gz, *.log}']
     ]
 
 
