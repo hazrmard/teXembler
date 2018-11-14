@@ -16,8 +16,8 @@ import (
 
 func main() {
 
-	var configFpath = flag.String("config", "test/config", `Config file containing
-	version information. Without extension.`)
+	var configFpath = flag.String("config", "config",
+		"Config file containing version information. Without extension.")
 	flag.Parse()
 
 	var configDir = path.Dir(*configFpath)
