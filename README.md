@@ -2,6 +2,8 @@
 
 Assemble versions of documents from source text.
 
+[Download](https://github.com/hazrmard/teXembler/releases) from the releases page.
+
 Use cases:
 
 * CVs with different focus,
@@ -81,7 +83,7 @@ This will show up in all cases.
 
 ### Config commands
 
-Config commands invoke another executable with arguments. Each part of the command is specified separately. The `cmd` key in the config file is a list of lists. So to run poweershell commands, like `remove-item`, the command string neds to be passed to `powershell.exe`:
+Config commands invoke another executable with arguments. Each part of the command is specified separately. The `cmd` key in the config file is a list of lists. So to run powershell commands, like `remove-item`, the command string neds to be passed to `powershell.exe`:
 
 ```
 cmd = [
@@ -95,7 +97,7 @@ Commands themselves are templates. So a command can refer to other settings in c
 ```
 files = ["files/f1.md", "files/f2.md"]
 cmd = [
-    ["some-exe.exe", "-flag", "{{index .files 0}}]
+    ["some-exe.exe", "-flag", "{{index .files 0}}"]
 ]
 ```
 
