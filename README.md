@@ -9,6 +9,16 @@ Use cases:
 * Same letter with different names
 * Any text-based template
 
+## How it works
+
+`teXembler` works in 2 steps:
+
+* **Text parsing**: The source text files are parsed, and separate versions are generated based on `config` file.
+
+* **Document assembly**: Each version of source files is passed to a command specified in `config` file `cmd` key. The command may be empty or something else (latex compilation etc.)
+
+![How it works](img/how-it-works.png)
+
 ## Usage
 
 ```
@@ -90,3 +100,6 @@ cmd = [
 ```
 
 *Note*: Files should be referred to in the above way i.e. by position `index .files LOCATION`. If files are referred to by their name, the original source file will be used instead of a temporary file parsed from the template.
+
+
+[1]: https://golang.org/pkg/text/template/
